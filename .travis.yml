@@ -1,0 +1,16 @@
+sudo: required
+
+# we need docker
+services:
+  - docker
+
+# what to do before install
+before_install:
+  - docker build -t muhammadamir/docker_react -f Dockerfile.dev .
+
+# a series of command to run
+# coverage is used to return back to command line
+# otherwise travis will assume that the test faild
+# because our test will not return to command prompt
+script:
+  - docker run muhammadamir/docker_react npm run test -- --coverage
