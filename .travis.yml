@@ -14,3 +14,17 @@ before_install:
 # because our test will not return to command prompt
 script:
   - docker run muhammadamir/docker_react npm run test -- --coverage
+
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-1"
+  app: "docker-react" # App name which we specified before
+  env: "DockerReact-env" # environment name
+  bucket_name: "elasticbeanstalk-us-east-1-530948389335" # will deploy to s3 bucket name
+  bucket_path": "docker-react"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
